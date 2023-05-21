@@ -1,5 +1,5 @@
 # TARS Discourse 
-Playground for a discourse bot.
+Playground for a discourse AI.
 
 Using OpenAI GPT and Whisper.
 
