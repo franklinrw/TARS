@@ -2,7 +2,7 @@
 TARS Refers to the Interstellar Robot: https://interstellarfilm.fandom.com/wiki/TARS.
 
 # TARS
-Playground for a discourse AI bot.
+Playground for Conversational AI.
 
 ## Setup
 Gradio
