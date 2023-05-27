@@ -9,5 +9,5 @@ Gradio
 Openai
 
 ## Flow
-### Pre-release
-![image](https://github.com/franklinwillemen/TARS/assets/101399113/9d0f156f-27b8-45df-88ec-6550bb3c5d4f)
+### v0.1.0-beta
+![image](https://github.com/franklinwillemen/TARS/assets/101399113/526d20ca-2ccc-48c3-b99b-80b2728dbfc5)
