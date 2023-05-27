@@ -10,5 +10,6 @@ Openai
 
 ## Flow
 ### v0.1.0-beta
-![image](https://github.com/franklinwillemen/TARS/assets/101399113/5b809f71-4e7b-4a00-a6c0-150a6d4a291f)
+![image](https://github.com/franklinwillemen/TARS/assets/101399113/46ef002d-25a9-4fcd-8bca-c785c8c452cb)
+
 
