@@ -23,7 +23,6 @@ def transcribe(audio: str):
     system_message = response["choices"][0]["message"]
     messages.append(system_message)
 
-    # subprocess.call(["say", system_message['content']])
     engine = pyttsx3.init()
     engine.say(system_message['content'])
     engine.runAndWait()
