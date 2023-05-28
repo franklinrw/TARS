@@ -1,4 +1,5 @@
 config.py
+TARS-ENV/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
