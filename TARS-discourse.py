@@ -2,7 +2,6 @@ import gradio as gr
 import openai
 import config
 import os
-import pyttsx3
 import azure.cognitiveservices.speech as speechsdk
 
 openai.api_key = config.OPENAI_API_KEY
