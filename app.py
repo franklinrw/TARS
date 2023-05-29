@@ -60,6 +60,6 @@ with gr.Blocks(theme=theme) as ui:
     audio_output = gr.Audio()
 
     btn = gr.Button("Run")
-    btn.click(fn=transcribe, inputs=audio_input, outputs=[text_output, audio_output])
+    btn.click(fn=conversation, inputs=audio_input, outputs=[text_output, audio_output])
 
 ui.launch()
