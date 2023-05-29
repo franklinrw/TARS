@@ -6,7 +6,7 @@ import azure.cognitiveservices.speech as speechsdk
 
 openai.api_key = config.OPENAI_API_KEY
 
-speech_config = speechsdk.SpeechConfig(subscription=config.AZURE_VOICE_KEY, region=config.AZURE_VOICE_LOCATION)
+speech_config = speechsdk.SpeechConfig(subscription=config.AZURE_SPEECH_KEY, region=config.AZURE_LOCATION)
 speech_config.speech_synthesis_voice_name = "en-US-AriaNeural"
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
 
@@ -59,14 +59,14 @@ theme = gr.themes.Default().set(
 
 with gr.Blocks(theme=theme) as ui:
     # advisor image input and microphone input
-    advisor = gr.Image(value=config.ADVISOR_IMAGE).style(width=config.ADVISOR_IMAGE_WIDTH, height=config.ADVISOR_IMAGE_HEIGHT)
+    advisor = gr.Image(value=config.TARS_LOGO).style(width=config.LOGO_IMAGE_WIDTH, height=config.LOGO_IMAGE_HEIGHT)
     audio_input = gr.Audio(source="microphone", type="filepath")
 
     # text transcript output and audio 
     text_output = gr.Textbox(label="Conversation Transcript")
-    audio_output = gr.Audio()
+    #audio_output = gr.Audio()
 
     btn = gr.Button("Run")
-    btn.click(fn=transcribe, inputs=audio_input, outputs=[text_output, audio_output])
+    btn.click(fn=transcribe, inputs=audio_input, outputs=[text_output])
 
 ui.launch(debug=True, share=True)
