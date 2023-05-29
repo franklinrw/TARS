@@ -9,7 +9,7 @@ app_file: app.py
 pinned: false
 license: cc
 ---
-![example workflow](https://github.com/franklinwillemen/TARS/actions/workflows/main.yml/badge.svg)
+![workflow](https://github.com/franklinwillemen/TARS/actions/workflows/main.yml/badge.svg)
 
 ![image](https://github.com/franklinwillemen/TARS-AI/assets/101399113/bbb17f33-280e-4dc8-9f1f-5ce0bfcee16e)
 TARS Refers to the Interstellar Robot: https://interstellarfilm.fandom.com/wiki/TARS.
