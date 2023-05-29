@@ -43,7 +43,7 @@ def conversation(audio:str):
         if message['role'] != 'system':
             chat_transcript += message['role'] + ": " + message['content'] + "\n\n"
 
-    return chat_transcript, "voice.wav"
+    return "voice.wav"
 
 # set a custom theme
 theme = gr.themes.Default().set(
@@ -60,6 +60,6 @@ with gr.Blocks(theme=theme) as ui:
     # text_output = gr.Textbox(label="Transcript")
 
     btn = gr.Button("Run")
-    btn.click(fn=conversation, inputs=audio_input, outputs=[text_output, audio_output])
+    btn.click(fn=conversation, inputs=audio_input, outputs=[audio_output])
 
 ui.launch()
