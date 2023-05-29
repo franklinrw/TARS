@@ -11,49 +11,39 @@ speech_config = speechsdk.SpeechConfig(subscription=os.environ['AZURE_SPEECH_KEY
 speech_config.speech_synthesis_voice_name = "nl-NL-ColetteNeural"
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
 
-messages = [{"role": "system", "content": 'You are a clever and helpfull conversationalist. Respond to all input in 25 words or less. Do not mention that you are an AI or service of any kind.'}]
+context = [{"role": "system", "content": 'You are a clever and helpfull conversationalist. Respond to all input in 25 words or less. Do not mention that you are an AI or service of any kind.'}]
 
-def transcribe(audio: str):
-    global messages
-
-    #audio_filename_with_extension = audio + '.wav'
-    #os.rename(audio, audio_filename_with_extension)
-    
+def transcribe(model: str, audio: str):
     audio_file = open(audio, "rb")
-    transcript = openai.Audio.transcribe("whisper-1", audio_file)
+    transcript = openai.Audio.transcribe(model, audio_file)
+    return transcript
 
-    messages.append({"role": "user", "content": transcript["text"]})
+def gen_response(model: str, context: list):
+    response = openai.ChatCompletion.create(model=model, messages=context)
+    return response["choices"][0]["message"]
 
-    response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+def gen_voice(response, response_filename):
+    reponse_audio = speech_synthesizer.speak_text_async(response['content']).get()
+    stream = speechsdk.AudioDataStream(reponse_audio)
+    stream.save_to_wav_file(response_filename)
 
+def conversation(audio:str):
+    audio_file = open(audio, "rb")
+    transcript = transcribe("whisper-1", audio_file)
+    context.append({"role": "user", "content": transcript['text']})
+
+    response = gen_response("gpt-3.5-turbo", context)
     system_message = response["choices"][0]["message"]
-    messages.append(system_message)
-
-    # engine = pyttsx3.init()
-    # engine.say(system_message['content'])
-    # engine.runAndWait()
-
-    voice_reponse = speech_synthesizer.speak_text_async(system_message['content']).get()
-    stream = speechsdk.AudioDataStream(voice_reponse)
-    stream.save_to_wav_file("file.wav")
-
-    # Checks result.
-    # if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
-    #     print("Speech synthesized to speaker for text [{}]".format(text))
-    # elif result.reason == speechsdk.ResultReason.Canceled:
-    #     cancellation_details = result.cancellation_details
-    #     print("Speech synthesis canceled: {}".format(cancellation_details.reason))
-    #     if cancellation_details.reason == speechsdk.CancellationReason.Error:
-    #         if cancellation_details.error_details:
-    #             print("Error details: {}".format(cancellation_details.error_details))
-    #     print("Did you update the subscription info?")
+    context.append(system_message)
+    
+    gen_voice(system_message, "voice.wav")
 
     chat_transcript = ""
-    for message in messages:
+    for message in context:
         if message['role'] != 'system':
             chat_transcript += message['role'] + ": " + message['content'] + "\n\n"
 
-    return chat_transcript, "file.wav"
+    return chat_transcript, "voice.wav"
 
 # set a custom theme
 theme = gr.themes.Default().set(
