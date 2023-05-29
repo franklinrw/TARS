@@ -1,3 +1,15 @@
+---
+title: TARS
+emoji: 
+colorFrom: black
+colorTo: black
+sdk: gradio
+sdk_version: 3.32.0
+app_file: app.py
+pinned: false
+license: cc
+---
+
 ![image](https://github.com/franklinwillemen/TARS-AI/assets/101399113/bbb17f33-280e-4dc8-9f1f-5ce0bfcee16e)
 TARS Refers to the Interstellar Robot: https://interstellarfilm.fandom.com/wiki/TARS.
 
