@@ -7,9 +7,9 @@ import azure.cognitiveservices.speech as speechsdk
 openai.api_key = os.environ['OPEN_AI_KEY']
 
 speech_config = speechsdk.SpeechConfig(subscription=os.environ['AZURE_SPEECH_KEY'], region="westeurope")
-audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+#audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
 speech_config.speech_synthesis_voice_name = "en-US-AriaNeural"
-speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
 
 messages = [{"role": "system", "content": 'You are a clever and helpfull conversationalist. Respond to all input in 25 words or less. Do not mention that you are an AI or service of any kind.'}]
 
@@ -33,7 +33,8 @@ def transcribe(audio: str):
     # engine.say(system_message['content'])
     # engine.runAndWait()
 
-    result = speech_synthesizer.speak_text_async(system_message['content']).get()
+    voice_reponse = speech_synthesizer.speak_text_async(system_message['content']).get()
+    stream = speechsdk.AudioDataStream(voice_reponse)
 
     # Checks result.
     # if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
@@ -51,7 +52,7 @@ def transcribe(audio: str):
         if message['role'] != 'system':
             chat_transcript += message['role'] + ": " + message['content'] + "\n\n"
 
-    return chat_transcript
+    return chat_transcript, voice_reponse
 
 # set a custom theme
 theme = gr.themes.Default().set(
@@ -65,9 +66,9 @@ with gr.Blocks(theme=theme) as ui:
 
     # text transcript output and audio 
     text_output = gr.Textbox(label="Conversation Transcript")
-    #audio_output = gr.Audio()
+    audio_output = gr.Audio()
 
     btn = gr.Button("Run")
-    btn.click(fn=transcribe, inputs=audio_input, outputs=[text_output])
+    btn.click(fn=transcribe, inputs=audio_input, outputs=[text_output, audio_output])
 
 ui.launch()
