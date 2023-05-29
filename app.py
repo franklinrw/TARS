@@ -7,8 +7,9 @@ import azure.cognitiveservices.speech as speechsdk
 openai.api_key = os.environ['OPEN_AI_KEY']
 
 speech_config = speechsdk.SpeechConfig(subscription=os.environ['AZURE_SPEECH_KEY'], region="westeurope")
+audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
 speech_config.speech_synthesis_voice_name = "en-US-AriaNeural"
-speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
+speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
 
 messages = [{"role": "system", "content": 'You are a clever and helpfull conversationalist. Respond to all input in 25 words or less. Do not mention that you are an AI or service of any kind.'}]
 
