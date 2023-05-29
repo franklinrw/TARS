@@ -11,7 +11,9 @@ speech_config = speechsdk.SpeechConfig(subscription=os.environ['AZURE_SPEECH_KEY
 speech_config.speech_synthesis_voice_name = "nl-NL-ColetteNeural"
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
 
-context = [{"role": "system", "content": 'You are a clever and helpfull conversationalist. Respond to all input in 25 words or less. Do not mention that you are an AI or service of any kind.'}]
+context = [{"role": "system", "content": 'You are a clever and helpfull conversationalist. \
+                                        Respond to all input in 25 words or less. \
+                                        Do not mention that you are an AI or service of any kind.'}]
 
 def transcribe(model: str, audio: str):
     audio_file = open(audio, "rb")
@@ -55,7 +57,7 @@ with gr.Blocks(theme=theme) as ui:
     audio_output = gr.Audio()
 
     # text transcript output and audio 
-    text_output = gr.Textbox(label="Transcript")
+    # text_output = gr.Textbox(label="Transcript")
 
     btn = gr.Button("Run")
     btn.click(fn=conversation, inputs=audio_input, outputs=[text_output, audio_output])
