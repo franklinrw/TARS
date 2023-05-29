@@ -1,12 +1,13 @@
 import gradio as gr
 import openai
 import config
+import local_config
 import os
 import azure.cognitiveservices.speech as speechsdk
 
-openai.api_key = os.environ['OPEN_AI_KEY']
+openai.api_key = local_config.OPENAI_API_KEY
 
-speech_config = speechsdk.SpeechConfig(subscription=os.environ['AZURE_SPEECH_KEY'], region="westeurope")
+speech_config = speechsdk.SpeechConfig(subscription=local_config.AZURE_SPEECH_KEY, region="westeurope")
 #audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
 speech_config.speech_synthesis_voice_name = "nl-NL-ColetteNeural"
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
