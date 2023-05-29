@@ -1,5 +1,6 @@
 TARS-ENV/
 local_config.py
+*.wav
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

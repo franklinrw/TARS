@@ -29,15 +29,13 @@ def gen_voice(response, response_filename):
     stream.save_to_wav_file(response_filename)
 
 def conversation(audio:str):
-    audio_file = open(audio, "rb")
-    transcript = transcribe("whisper-1", audio_file)
+    transcript = transcribe("whisper-1", audio)
     context.append({"role": "user", "content": transcript['text']})
 
     response = gen_response("gpt-3.5-turbo", context)
-    system_message = response["choices"][0]["message"]
-    context.append(system_message)
+    context.append(response)
     
-    gen_voice(system_message, "voice.wav")
+    gen_voice(response, "voice.wav")
 
     chat_transcript = ""
     for message in context:
