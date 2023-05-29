@@ -1,7 +1,7 @@
 import gradio as gr
 import openai
 import config
-import os
+#import os
 import azure.cognitiveservices.speech as speechsdk
 
 openai.api_key = config.OPENAI_API_KEY
@@ -15,10 +15,10 @@ messages = [{"role": "system", "content": 'You are a clever and helpfull convers
 def transcribe(audio: str):
     global messages
 
-    audio_filename_with_extension = audio + '.wav'
-    os.rename(audio, audio_filename_with_extension)
+    #audio_filename_with_extension = audio + '.wav'
+    #os.rename(audio, audio_filename_with_extension)
     
-    audio_file = open(audio_filename_with_extension, "rb")
+    audio_file = open(audio, "rb")
     transcript = openai.Audio.transcribe("whisper-1", audio_file)
 
     messages.append({"role": "user", "content": transcript["text"]})

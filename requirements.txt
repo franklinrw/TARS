@@ -1,4 +1,3 @@
 openai
 gradio
-os
 azure-cognitiveservices-speech
