@@ -69,4 +69,4 @@ with gr.Blocks(theme=theme) as ui:
     btn = gr.Button("Run")
     btn.click(fn=transcribe, inputs=audio_input, outputs=[text_output])
 
-ui.launch(debug=True, share=True)
+ui.launch()
