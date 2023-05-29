@@ -35,6 +35,7 @@ def transcribe(audio: str):
 
     voice_reponse = speech_synthesizer.speak_text_async(system_message['content']).get()
     stream = speechsdk.AudioDataStream(voice_reponse)
+    stream.save_to_wav_file("file.wav")
 
     # Checks result.
     # if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
@@ -52,7 +53,7 @@ def transcribe(audio: str):
         if message['role'] != 'system':
             chat_transcript += message['role'] + ": " + message['content'] + "\n\n"
 
-    return chat_transcript, voice_reponse
+    return chat_transcript, "file.wav"
 
 # set a custom theme
 theme = gr.themes.Default().set(
