@@ -1,12 +1,12 @@
 import gradio as gr
 import openai
 import config
-#import os
+import os
 import azure.cognitiveservices.speech as speechsdk
 
-openai.api_key = config.OPENAI_API_KEY
+openai.api_key = os.environ['OPEN_AI_KEY']
 
-speech_config = speechsdk.SpeechConfig(subscription=config.AZURE_SPEECH_KEY, region=config.AZURE_LOCATION)
+speech_config = speechsdk.SpeechConfig(subscription=os.environ['AZURE_SPEECH_KEY'], region="westeurope")
 speech_config.speech_synthesis_voice_name = "en-US-AriaNeural"
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
 
