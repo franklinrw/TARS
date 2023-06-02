@@ -19,6 +19,6 @@ with gr.Blocks(theme=theme) as ui:
     btn1.click(fn=d.respond, inputs=message, outputs=[audio_response])
 
     btn2 = gr.Button("Save Transcript")
-    btn2.click(fn=d.save_context)
+    btn2.click(fn=d.memory)
 
 ui.launch()
