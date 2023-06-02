@@ -15,7 +15,10 @@ with gr.Blocks(theme=theme) as ui:
     # text transcript output and audio 
     # text_output = gr.Textbox(label="Transcript")
 
-    btn = gr.Button("Run")
-    btn.click(fn=d.respond, inputs=message, outputs=[audio_response])
+    btn1 = gr.Button("Respond")
+    btn1.click(fn=d.respond, inputs=message, outputs=[audio_response])
+
+    btn2 = gr.Button("Save Transcript")
+    btn2.click(fn=d.save_context)
 
 ui.launch()
