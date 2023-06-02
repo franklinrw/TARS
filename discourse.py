@@ -34,11 +34,11 @@ def respond(audio:str):
     response = gen_response("gpt-3.5-turbo", context)
     context.append(response)
     
-    gen_voice(response, "voice.wav")
+    gen_voice(response, "audio_response.wav")
 
     # chat_transcript = ""
     # for message in context:
     #     if message['role'] != 'system':
     #         chat_transcript += message['role'] + ": " + message['content'] + "\n\n"
 
-    return "voice.wav"
+    return "audio_response.wav"

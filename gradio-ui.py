@@ -10,12 +10,12 @@ with gr.Blocks(theme=theme) as ui:
     # advisor image input and microphone input
     # advisor = gr.Image(value=config.TARS_LOGO).style(width=config.LOGO_IMAGE_WIDTH, height=config.LOGO_IMAGE_HEIGHT)
     message = gr.Audio(source="microphone", type="filepath")
-    response = gr.Audio()
+    audio_response = gr.Audio()
 
     # text transcript output and audio 
     # text_output = gr.Textbox(label="Transcript")
 
     btn = gr.Button("Run")
-    btn.click(fn=d.respond, inputs=message, outputs=[response])
+    btn.click(fn=d.respond, inputs=message, outputs=[audio_response])
 
 ui.launch()
