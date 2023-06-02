@@ -38,7 +38,7 @@ def gen_voice(response, response_filename):
     stream = speechsdk.AudioDataStream(reponse_audio)
     stream.save_to_wav_file(response_filename)
 
-def memory(context:list):
+def memory():
 
     with open(DATA_FILE, "a") as csvfile:
         for message in context:
