@@ -39,7 +39,6 @@ def gen_voice(response, response_filename):
     stream.save_to_wav_file(response_filename)
 
 def memory():
-
     with open(DATA_FILE, "a") as csvfile:
         for message in context:
             writer = csv.DictWriter(csvfile, fieldnames=["name", "message"])
