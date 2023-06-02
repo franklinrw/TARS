@@ -28,13 +28,13 @@ def gen_voice(response, response_filename):
 
 def save_context(context):
     chat_transcript = ""
-    for message in context:
-        if message['role'] != 'system':
-            chat_transcript += message['role'] + ": " + message['content'] + "\n\n"
-
     file_name = "context.txt"
+    
     with open(file_name, 'w') as file:
-        file.write(chat_transcript)
+        for message in context:
+            if message['role'] != 'system':
+                chat_transcript = message['role'] + ": " + message['content'] + "\n\n"
+                file.write(chat_transcript)
 
 
 def respond(audio:str):
