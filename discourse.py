@@ -26,16 +26,15 @@ def gen_voice(response, response_filename):
     stream = speechsdk.AudioDataStream(reponse_audio)
     stream.save_to_wav_file(response_filename)
 
-def save_context(context):
+def save_context():
     chat_transcript = ""
     file_name = "context.txt"
-    
+
     with open(file_name, 'w') as file:
         for message in context:
             if message['role'] != 'system':
                 chat_transcript = message['role'] + ": " + message['content'] + "\n\n"
                 file.write(chat_transcript)
-
 
 def respond(audio:str):
     transcript = transcribe("whisper-1", audio)
