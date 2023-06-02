@@ -8,9 +8,8 @@ speech_config = speechsdk.SpeechConfig(subscription=os.environ['AZURE_SPEECH_KEY
 speech_config.speech_synthesis_voice_name = "nl-NL-ColetteNeural"
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
 
-
 context = [{"role": "system", "content": 'You are a clever and helpfull conversationalist. \
-                                        Respond to all input in 25 words or less. \
+                                        Respond concise and to the point. \
                                         Do not mention that you are an AI or service of any kind.'}]
 
 def transcribe(model: str, audio: str):
@@ -27,6 +26,17 @@ def gen_voice(response, response_filename):
     stream = speechsdk.AudioDataStream(reponse_audio)
     stream.save_to_wav_file(response_filename)
 
+def save_context(context):
+    chat_transcript = ""
+    for message in context:
+        if message['role'] != 'system':
+            chat_transcript += message['role'] + ": " + message['content'] + "\n\n"
+
+    file_name = "context.txt"
+    with open(file_name, 'w') as file:
+        file.write(chat_transcript)
+
+
 def respond(audio:str):
     transcript = transcribe("whisper-1", audio)
     context.append({"role": "user", "content": transcript['text']})
@@ -35,10 +45,5 @@ def respond(audio:str):
     context.append(response)
     
     gen_voice(response, "audio_response.wav")
-
-    # chat_transcript = ""
-    # for message in context:
-    #     if message['role'] != 'system':
-    #         chat_transcript += message['role'] + ": " + message['content'] + "\n\n"
 
     return "audio_response.wav"
