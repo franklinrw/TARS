@@ -1,0 +1,22 @@
+name: Sync with Hugging Face Hub Public
+on:
+  push:
+    branches: [public_hf]
+
+  # to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
+      - name: Push to hub
+        env:
+          HF: ${{ secrets.HG }}
+          OPENAI_KEY: ${{ secrets.OPENAI_API_KEY }}
+          AZURE_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+        run: git push https://FranklinWillemen:$HF@huggingface.co/spaces/FranklinWillemen/TARS_PUBLIC main
