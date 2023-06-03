@@ -17,10 +17,7 @@ with gr.Blocks(theme=theme) as ui:
             audio_response = gr.Audio()
     with gr.Row():
         text_response = gr.Textbox(label="Transcript", max_lines=10)
-    with gr.Row():
-        btn2 = gr.Button("Save Conversation")
 
     btn1.click(fn=d.respond, inputs=message, outputs=[audio_response, text_response])
-    btn2.click(fn=d.memory)
 
 ui.launch()
