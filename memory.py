@@ -11,10 +11,6 @@ repo = Repository(
     local_dir="data", clone_from=DATASET_REPO_URL, use_auth_token=HF_TOKEN
 )
 
-context = [{"role": "system", "content": 'Je bent een slimme en behulpzame gesprekspartner. \
-                                          Antwoord beknopt en ter zake.\
-                                          Vermeld niet dat je een AI of een soort service bent.'}]
-
 def save_as_hf_dataset():
     with open(DATA_FILE, "a") as csvfile:
         for message in context:

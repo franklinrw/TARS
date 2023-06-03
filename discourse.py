@@ -11,12 +11,16 @@ speech_config = speechsdk.SpeechConfig(subscription=os.environ['AZURE_SPEECH_KEY
 speech_config.speech_synthesis_voice_name = "nl-NL-ColetteNeural"
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
 
+context = [{"role": "system", "content": 'Je bent een slimme en behulpzame gesprekspartner. \
+                                          Antwoord beknopt en ter zake.\
+                                          Vermeld niet dat je een AI of een soort service bent.'}]
+
 def transcribe(model: str, audio: str):
     audio_file = open(audio, "rb")
     transcript = openai.Audio.transcribe(model, audio_file, language=LANGUAGE)
     return transcript
 
-def gen_response(model: str, context: list):
+def gen_response(model: str):
     response = openai.ChatCompletion.create(model=model, messages=context)
     return response["choices"][0]["message"]
 
@@ -25,7 +29,7 @@ def gen_voice(response, response_filename):
     stream = speechsdk.AudioDataStream(reponse_audio)
     stream.save_to_wav_file(response_filename)
     
-def respond(audio:str, context: list):
+def respond(audio:str):
     transcript = transcribe("whisper-1", audio)
     context.append({"role": "user", "content": transcript['text']})
 
@@ -36,8 +40,10 @@ def respond(audio:str, context: list):
 
     return AUDIO_FILE_NAME
 
-def transcript(context: list):
+def transcript():
     transcript = ""
     for m in context:
         if m["role"] != "system":
             transcript += m["role"] + " : " + m["content"] + "\n\n"
+
+    return transcript

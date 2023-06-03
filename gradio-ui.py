@@ -12,16 +12,19 @@ with gr.Blocks(theme=theme) as ui:
         with gr.Column(scale=1):
             message = gr.Audio(source="microphone", type="filepath")
     with gr.Row():
-        btn1 = gr.Button("Respond")
+        btn1 = gr.Button("Generate Reponse")
     with gr.Row():
         with gr.Column(scale=1):
             audio_response = gr.Audio()
     with gr.Row():
         text_response = gr.Textbox(label="Transcript", max_lines=10)
     with gr.Row():
-        btn2 = gr.Button("Save Conversation")
+        btn3 = gr.Button("Show Transcript")
+    with gr.Row():
+        btn2 = gr.Button("Save Transcript")
 
-    btn1.click(fn=d.respond, inputs=[message, m.context], outputs=[audio_response, text_response])
+    btn1.click(fn=d.respond, inputs=message, outputs=audio_response)
     btn2.click(fn=m.save_as_hf_dataset)
+    btn3.click(fn=d.transcript, output=text_response)
 
 ui.launch()
