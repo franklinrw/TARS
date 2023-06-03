@@ -6,7 +6,7 @@ import csv
 from huggingface_hub import Repository
 
 DATASET_REPO_URL = "https://huggingface.co/datasets/FranklinWillemen/persistent-space-dataset"
-DATA_FILENAME = "data.txt"
+DATA_FILENAME = "data.csv"
 DATA_FILE = os.path.join("data", DATA_FILENAME)
 HF_TOKEN = os.environ.get("HF_TOKEN")
 
