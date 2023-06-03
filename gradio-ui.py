@@ -6,7 +6,6 @@ theme = gr.themes.Default().set(
     body_background_fill="#000000",
 )
 
-# This is gradio blocks
 with gr.Blocks(theme=theme) as ui:
     with gr.Row():
         with gr.Column(scale=1):
