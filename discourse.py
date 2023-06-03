@@ -10,6 +10,8 @@ DATA_FILENAME = "data.txt"
 DATA_FILE = os.path.join("data", DATA_FILENAME)
 HF_TOKEN = os.environ.get("HF_TOKEN")
 
+LANGUAGE = "nl"
+
 repo = Repository(
     local_dir="data", clone_from=DATASET_REPO_URL, use_auth_token=HF_TOKEN
 )
@@ -20,13 +22,13 @@ speech_config = speechsdk.SpeechConfig(subscription=os.environ['AZURE_SPEECH_KEY
 speech_config.speech_synthesis_voice_name = "nl-NL-ColetteNeural"
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
 
-context = [{"role": "system", "content": 'You are a clever and helpfull conversationalist. \
-                                        Respond concise and to the point. \
-                                        Do not mention that you are an AI or service of any kind.'}]
+context = [{"role": "system", "content": 'Je bent een slimme en behulpzame gesprekspartner. \
+                                          Antwoord beknopt en ter zake.\
+                                          Vermeld niet dat je een AI of een soort service bent.'}]
 
 def transcribe(model: str, audio: str):
     audio_file = open(audio, "rb")
-    transcript = openai.Audio.transcribe(model, audio_file)
+    transcript = openai.Audio.transcribe(model, audio_file, language=LANGUAGE)
     return transcript
 
 def gen_response(model: str, context: list):
