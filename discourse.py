@@ -63,6 +63,6 @@ def respond(audio:str):
     transcript = ""
     for m in context:
         if m["role"] != "system":
-            transcript += m["role"] + " : " + m["text"] + "\n\n"
+            transcript += m["role"] + " : " + m["content"] + "\n\n"
 
     return AUDIO_FILE_NAME, transcript
