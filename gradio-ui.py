@@ -1,5 +1,6 @@
 import gradio as gr
 import discourse as d
+import memory as m
 
 # set a custom theme
 theme = gr.themes.Default().set(
@@ -20,7 +21,7 @@ with gr.Blocks(theme=theme) as ui:
     with gr.Row():
         btn2 = gr.Button("Save Conversation")
 
-    btn1.click(fn=d.respond, inputs=message, outputs=[audio_response, text_response])
-    btn2.click(fn=d.memory)
+    btn1.click(fn=d.respond, inputs=[message, m.context], outputs=[audio_response, text_response])
+    btn2.click(fn=m.save_as_hf_dataset)
 
 ui.launch()
