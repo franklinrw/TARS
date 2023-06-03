@@ -11,6 +11,7 @@ DATA_FILE = os.path.join("data", DATA_FILENAME)
 HF_TOKEN = os.environ.get("HF_TOKEN")
 
 LANGUAGE = "nl"
+AUDIO_FILE_NAME = "audio_response.wav"
 
 repo = Repository(
     local_dir="data", clone_from=DATASET_REPO_URL, use_auth_token=HF_TOKEN
@@ -57,6 +58,11 @@ def respond(audio:str):
     response = gen_response("gpt-3.5-turbo", context)
     context.append(response)
     
-    gen_voice(response, "audio_response.wav")
+    gen_voice(response, AUDIO_FILE_NAME)
 
-    return "audio_response.wav"
+    transcript = ""
+    for m in context:
+        if m["role"] != "system":
+            transcript += m["role"] + " : " + m["text"] + "\n\n"
+
+    return AUDIO_FILE_NAME, transcript
