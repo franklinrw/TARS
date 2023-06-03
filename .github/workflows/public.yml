@@ -1,7 +1,7 @@
 name: Sync with Hugging Face Hub Public
 on:
   push:
-    branches: [public]
+    branches: [public_hf]
 
   # to run this workflow manually from the Actions tab
   workflow_dispatch:
