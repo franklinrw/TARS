@@ -2,7 +2,7 @@ import openai
 import os
 import azure.cognitiveservices.speech as speechsdk
 
-LANGUAGE = "en"
+LANGUAGE = "nl"
 AUDIO_FILE_NAME = "audio_response.wav"
 
 openai.api_key = os.environ['OPEN_AI_KEY']
@@ -10,8 +10,10 @@ openai.api_key = os.environ['OPEN_AI_KEY']
 GEN_MODEL = "gpt-3.5-turbo"
 TRANSCRIBE_MODEL = "whisper-1"
 
+en = "en-GB-ElliotNeural"
+
 speech_config = speechsdk.SpeechConfig(subscription=os.environ['AZURE_SPEECH_KEY'], region="westeurope")
-speech_config.speech_synthesis_voice_name = "en-GB-ElliotNeural"
+speech_config.speech_synthesis_voice_name = "nl-NL-FennaNeural"
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
 
 #context = [{"role": "system", "content": "You are an intelligent and sarcastic and funny conversation partner.\
