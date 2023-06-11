@@ -2,7 +2,6 @@ import openai
 import os
 import azure.cognitiveservices.speech as speechsdk
 
-LANGUAGE = "nl"
 AUDIO_FILE_NAME = "audio_response.wav"
 
 openai.api_key = os.environ['OPEN_AI_KEY']
@@ -20,7 +19,7 @@ Your responses should reveal a distinct sense of wit, but do not mention that yo
 
 def transcribe(model: str, audio: str):
     audio_file = open(audio, "rb")
-    transcript = openai.Audio.transcribe(model, audio_file, language=LANGUAGE)
+    transcript = openai.Audio.transcribe(model, audio_file)
     return transcript
 
 def gen_response(model: str):
